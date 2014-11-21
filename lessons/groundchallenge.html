@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>jQuery Selectors</title>
+  
+</head>
+<body>
+<script type="text/javascript">
+var str = "abccdefe"
+onlyUnique(str)
+
+function onlyUnique (str) {
+var a = str.split("");
+var h = {};
+for (x=0; x < a.length; x++){
+  h[a[x]] || (h[a[x]] = 0)
+  h[a[x]]++
+}
+
+var k = Object.keys(h);
+console.log(k)
+a = [];
+for (x=0; x < k.length; x++){
+  if (h[k[x]] === 1)
+  { a.push(k[x])}
+}
+return a.join("");
+}
+</script>
+</body>

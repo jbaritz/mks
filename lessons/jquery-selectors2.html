@@ -1,0 +1,84 @@
+<html>
+<head>
+  <title>jQuery Selectors</title>
+  <style type="text/css">
+    .item {
+      padding: 8px;
+      width: 200px;
+      background: #ccc;
+    }
+    .item.active {
+      background: #cfc;
+    }
+  </style>
+</head>
+<body>
+
+<form class="new-item">
+  <label>Pre-Filled Name Input: </label><input class="name" type="text" value="Mitch Thomson" />
+  <br />
+  <label>Pre-Filled Price Input: </label>
+  <input type="text" class="price" value="Mitch is $19">
+  <br />
+  <input class="submit" type="submit" value="SUBMIT!"></input>
+</form>
+
+<div id="items">
+  <div class="item">
+    <label>Item One</label>
+    <div class="price">$11</div>
+  </div>
+
+  <div class="item active">
+    <label>Item Two</label>
+    <div class="price">$22</div>
+  </div>
+
+  <div class="item">
+    <label>Item Three</label>
+    <div class="price">$33</div>
+  </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+// $(document).ready(function(){
+//   $('form .text').eq(1);
+//   $('form.new-item').on('submit', function (e) {
+//   e.preventDefault();
+//   var newItemName = $('.name', this).val();
+//   console.log('You entered:', newItemName);
+// });
+// })
+
+var text = "aabbccdd";
+var alphabet = "aBc"
+
+
+
+function alphaCount (alphabet, text) {
+  var counts = {}
+  text.toLowerCase().split("").forEach(function(c){
+      counts[c] || (counts[c] = 0) 
+  counts[c] += 1
+  })
+  
+  var output = []
+  alphabet.toLowerCase().split("").forEach(function(c){
+      if (counts[c] == undefined)  return;
+      output.push(c +":" + counts[c])
+    })
+
+  if (output.length > 0){
+    return output.join(",")
+  }
+  else {
+    return "no matches"
+  }
+      }  
+  
+
+</script>
+</body>
+</html>

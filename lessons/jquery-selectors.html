@@ -1,0 +1,167 @@
+<html>
+<head>
+  <title>jQuery Selectors</title>
+  <style type="text/css">
+    .item {
+      padding: 8px;
+      width: 200px;
+      background: #ccc;
+    }
+    .item.active {
+      background: #cfc;
+    }
+  </style>
+</head>
+<body>
+
+<form class="new-item">
+  <label>Pre-Filled Name Input: </label><input class="name" type="text" value="Mitch Thomson" />
+  <br />
+  <label>Pre-Filled Price Input: </label>
+  <input type="text" class="price" value="Mitch is $19">
+  <br />
+  <input class="submit" type="submit" value="SUBMIT!"></input>
+</form>
+
+<div id="items">
+  <div class="item">
+    <label>Item One</label>
+    <div class="price">$11</div>
+  </div>
+
+  <div class="item active">
+    <label>Item Two</label>
+    <div class="price">$22</div>
+  </div>
+
+  <div class="item">
+    <label>Item Three</label>
+    <div class="price">$33</div>
+  </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+// TODO
+$.get("http://critics.api.mks.io/restaurants", function (reviews) {
+  console.log("Restaurant reviews:", reviews)
+
+  var reviewers = []
+  reviews.forEach(function(r) {
+    if (reviewers.indexOf(r.reviewer) == -1) {
+      reviewers.push(r.reviewer)
+    }
+  })
+  console.log("All reviewers:", reviewers)
+
+  var terse = reviews.filter(function(r) {
+    return r.comment.length < 30
+  })
+  console.log("Terse reviews:", terse)
+
+
+   var ratings = reviews.filter(function(r) {
+       return r.rating >= 8
+    })    
+
+  console.log("Reviews over 8:")
+   ratings.forEach(function(r){
+      console.log(r.rating+" - "+r.venue)
+    })
+
+  var hasaustin = reviews.filter(function(r){
+   return r.venue.match(/Austin/)
+  })
+
+  console.log("Austin restaurants:")
+  hasaustin.forEach(function(r){
+    console.log(r.venue)
+  })
+  })
+
+$.get("http://critics.api.mks.io/movie-genres", function (reviews) {
+
+  console.log("Most reviewed genres:")
+  var numofreviews = {}
+   reviews.forEach(function(r){
+    if(numofreviews.hasOwnProperty(r.genre)){
+      numofreviews[r.genre]++;}
+    else{
+        numofreviews[r.genre] = 1;}
+      })
+
+   var reviewarray = []
+    for(genre in numofreviews){
+    reviewarray.push({'genre':genre, 'rating':numofreviews[genre]})
+   }
+
+    arraysorted = reviewarray.sort(function(a,b){
+      return b.rating-a.rating
+  })
+
+
+
+for (var i = 0; i < 3; i++){
+  console.log(arraysorted[i]["genre"]+" - "+arraysorted[i]["rating"]);
+} 
+
+console.log("Highest average ratings:")
+
+var genre_reviews = []
+    reviews.forEach(function(r) {
+      var genre = {}
+      // Create Object
+
+      var genre_found = false
+      genre_reviews.forEach(function(genre_info) {
+        if (genre_info["name"] === r.genre) {
+          genre_found = true
+          // Update Object
+          genre_info["total"] += parseFloat(r.rating)
+          genre_info["count"] += 1
+          genre_info["average"] = genre_info["total"] / genre_info["count"]
+        }
+      })
+      if (genre_found === false) {
+        // Initialize Object
+        var new_genre_info = {}
+        new_genre_info["name"] = r.genre
+        new_genre_info["total"] = parseFloat(r.rating)
+        new_genre_info["count"] = 1
+        new_genre_info["average"] = new_genre_info["total"]
+        genre_reviews.push(new_genre_info)
+      }
+
+
+    })
+
+    // Sort By Highest Average Rating
+    genre_reviews.sort(function (a, b) {
+      if (parseInt(a.average) > parseInt(b.average)) {
+        return 1;
+      }
+      if (parseInt(a.average) < parseInt(b.average)) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    }).reverse();
+    for (var i = 0; i < 3; i++) {
+      console.log(genre_reviews[i]["name"] + " - " + genre_reviews[i]["average"])
+    }
+  
+})
+
+$.get("http://critics.api.mks.io/cheeses", function (reviews) {
+  reviews.forEach(function(r){
+    console.log(r.cheese + ": "+r.comment+" - "+r.reviewer)
+  })
+
+})
+</script>
+
+
+</body>
+</html>
