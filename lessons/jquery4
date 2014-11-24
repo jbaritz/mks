@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>jQuery form</title>
+</head>
+<body><form class="cheese">
+  <h3>New Cheese Review</h3>
+
+  <!-- This errors div will be empty until the user submits a bad request -->
+  <div class="errors"></div>
+
+  <label>Reviewer name:</label>
+  <input type="text" name="reviewer" />
+  <label>Cheese:</label>
+   <input type="text" name="cheese" />
+   <label>Rating</label>
+    <select name="rating" /><option>1</option>
+    <option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+    <label>Comment:</label>
+     <textarea name="comment" /></textarea>
+  <br />
+
+  <input type="submit" value="Submit Review" />
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+$('form.cheese').on('submit', function (e) {
+  e.preventDefault()
+
+  // Delete this next line when it starts getting annoying :)
+  alert("You submitted the form! (but I stopped it)")
+
+  var requestBody = {}
+  requestBody.reviewer = $('[name=reviewer]', this).val()
+  requestBody.cheese =  $('[name=cheese]', this).val()
+  requestBody.rating =  $('[name=rating]', this).val()
+  requestBody.comment =  $('[name=comment]', this).val()
+
+  var url = "http://critics.api.mks.io/cheeses"
+  $.post(url, requestBody)
+    .done(function(newCheese) {
+      console.log("Success! Created new cheese review:", newCheese)
+      var $labeldiv = $('<div>')
+      $labeldiv.html("You successfully submitted the following:")
+       $('form.cheese').append($labeldiv)
+      for (var field in newCheese) {
+       var fieldtext = newCheese[field]
+       var $successDiv = $('<div>')
+       $successDiv.html(field + ": " + fieldtext)
+       $('form.cheese').append($successDiv)
+     }
+    })
+    .fail(function(error) {
+      console.log("Invalid POST request:", error.responseText)
+      var errorObj = JSON.parse(error.responseText)
+      console.log("Errors:", errorObj)
+      for (var fieldName in errorObj) {
+      console.log(fieldName, errorObj[fieldName])
+      var errorText = errorObj[fieldName].join(';')
+      var $errorDiv = $('<div>').addClass('error')
+      $errorDiv.html(fieldName + " - " + errorText)
+      $('form.cheese .errors').append($errorDiv)
+      }
+    })
+})
+</script>
+</body>
+</html>
