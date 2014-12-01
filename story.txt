@@ -2,6 +2,12 @@
 
 		"This is fun," Tommy thought.
 
+[1]   It was a windy day.
+
+      The mailman barely made it to the front door. When the door opened, Mrs Penninton said, "hello", but before she had a real chance to say "thank you", the mail blew out of the mailman's hands, into the house and the front door sammed in his face. Mrs. Pennington ran to pick up the mail.
+
+      "Oh my," she said.
+
 [3]  Tommy crawled down from the window-seat and ran to the door. He opened it with a bang. The wind blew fiercely and snatched the newly recovered mail from Mrs. Pennington's hands and blew it even further into the house.
 
 		"Oh my," she said again. Tommy ran outside and the door slammed shut.
@@ -22,10 +28,7 @@
 
 [16]  "There," she said, "it will be safe until we get home."
 
-
-[5] Mrs. Pennington came to the front porch.
-
-Tommy, I have your jacket. Please put it on.
+      Tommy smiled, ran into the car and got in. He rolled down the back window and looked up into the sky. He wondered where the old lead had gone. Perhaps one day he would see what the old leaf had seen - perhaps.
 
 [10] “If the wind blows you in that direction,” the old leaf said, “you will end up in the city dump.”
 
@@ -35,10 +38,6 @@ Tommy, I have your jacket. Please put it on.
 
 “Follow me to the city dump,” the maple leaf said.  “Most of met friends are there.”
 [14] Tommy saw the fence that surrounded the city dump. He was happy to be with his friend. They would have fun in the dump.
-
-[16]  "There," she said, "it will be safe until we get home."
-
-	Suddenly, a car pulled up. It was Tommy’s mom. Mrs. Pennington wasn’t about to let her little boy run into the city dump.
 
 
 [?] "Where do you think we are going?" Tommy asked the lead.
@@ -57,3 +56,4 @@ Tommy, I have your jacket. Please put it on.
 
 “If I was a leaf, I would fly clear across the world,” Tommy thought and then ran out into the yard among the swirl of colors.
 
+>>>>>>> refs/remotes/origin/master
