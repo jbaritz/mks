@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head><title>Actors</title></head>
+<body><h1>Films <%= @actorname %> has starred in</h1>
+<% @actorfilms.each {|film| %>
+<a href= <%= "/movies/" + film["id"].to_s %> > <%= film["title"] %></a><br>
+<% } %>
+</body>
+</html>

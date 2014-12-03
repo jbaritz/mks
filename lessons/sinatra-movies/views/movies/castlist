@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head><title>Actors</title></head>
+<body><h1>Actors List</h1>
+<% @movactors.each {|actor| %>
+<%= actor["name"] %></a><br>
+<% } %>
+</body>
+</html>

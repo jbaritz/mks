@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head><title>Movies</title></head>
+<body><h1>Movies List</h1>
+<% @movies.each {|movie| %>
+ <a href=<%= "movies/"+ movie["id"].to_s %> ><%= movie["title"] %></a><br>
+<% } %>
+</body>
+</html>
