@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+<title>Chatitude</title>
+<style>
+  .chatbox {
+	background-color: #99CCFF;
+	padding: 10px;
+	margin: 5px;
+	width: 600px;
+  }
+
+</style>
+<script src="jquery-2.1.1.js"></script>
+<script src="handlebars-v2.0.0.js"></script>
+</head>
+<body>
+<a href="#" class="signup">Sign Up</a> | <a href="#" class="signin">Sign In</a> |
+<a href="#" class="showchats">View Chats</a>
+
+<div class="chatlist"> 
+<script id="chats" type="text/x-handlebars-template">
+	
+	<div id="{{id}}" class="chatbox">
+		<p><b>{{user}}</b>: {{message}}</p>
+		<p>@ {{time}}</p>
+		</div>
+	
+</script></div>
+
+<div class="signupform">
+	<form class="signupform">
+	<h4>Sign Up:</h4>
+	<div class="signuperror"></div>
+	<label>Username:</label>
+	<input type="text" name="username"><br><br>
+	<label>Password:</label>
+	<input type="password" name="password"><br><br>
+	<input type="submit">
+	</form>
+</div>
+
+<div class="signinform">
+	<form class="signinform">
+	<h4>Sign In:</h4>
+	<div class="signinerror"></div>
+	<label>Username:</label>
+	<input type="text" name="username"><br><br>
+	<label>Password:</label>
+	<input type="password" name="password"><br><br>
+	<input type="submit">
+	</form>
+</div>
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+ $('.signupform').hide();
+
+  $(".showchats").on('click', function(e){
+  	$('.chatlist').show();
+  	$('.signinform').hide();
+  	$('.signupform').hide();
+	var source   = $("#chats").html() //grabs the html
+	var template = Handlebars.compile(source) //"template" acts as a function
+
+	var url = "http://chat.api.mks.io/chats"
+	$.get(url, function (chats) {
+		chats.forEach(function (chat) {
+			var chatHtml = template(chat)
+			$('.chatlist').append(chatHtml)
+		})
+	}) //close get req
+  }) //close signup click
+
+ $('.signup').on('click', function(e){ //show sign up form
+  	$('.chatlist').hide();
+  	$('.signinform').hide();
+  	$('.signupform').show();
+  }) //end signup click
+
+  $('.signin').on('click', function(e){ //show sign up form
+  	$('.chatlist').hide();
+  	$('.signupform').hide();
+  	$('.signinform').show();
+
+  }) //end signin click
+
+$('form.signupform').on('submit', function (e) { //signupform
+  e.preventDefault()
+  var requestBody = {}
+  requestBody.username = $('[name=username]', this).val()
+  requestBody.password =  $('[name=password]', this).val()
+  var url = "http://chat.api.mks.io/signup"
+
+  $.post(url, requestBody)
+    .done(function(newUser) {
+      var $labeldiv = $('<div>')
+      $labeldiv.html("You have successfully registered!")
+       $('form.signupform').append($labeldiv)
+
+    })
+    .fail(function(error) {
+      console.log("Invalid POST request:", error.responseText)
+      var errorObj = JSON.parse(error.responseText)
+      for (var fieldName in errorObj) {
+      console.log(fieldName, errorObj[fieldName])
+      var errorText = errorObj[fieldName].join(';')
+      var $errorDiv = $('<div>').addClass('error')
+      $errorDiv.html(fieldName + " - " + errorText)
+      $('form.cheese .signuperror').append($errorDiv)
+      }
+    })
+	}) // end signup post
+$('form.signinform').on('submit', function (e) { //signinform
+  e.preventDefault()
+  var requestBody = {}
+  requestBody.username = $('[name=username]', this).val()
+  requestBody.password =  $('[name=password]', this).val()
+  var url = "http://chat.api.mks.io/signin"
+
+  $.post(url, requestBody)
+    .done(function(response) {
+      var $labeldiv = $('<div>')
+      $labeldiv.html("You have successfully signed in!")
+       $('form.signupform').append($labeldiv)     
+      localStorage.setItem('apiToken', response['apiToken'])
+
+    })
+    .fail(function(error) {
+      console.log("Invalid POST request:", error.responseText)
+      var errorObj = JSON.parse(error.responseText)
+      for (var fieldName in errorObj) {
+      console.log(fieldName, errorObj[fieldName])
+      var errorText = errorObj[fieldName].join(';')
+      var $errorDiv = $('<div>').addClass('error')
+      $errorDiv.html(fieldName + " - " + errorText)
+      $('form.cheese .signuperror').append($errorDiv)
+      }
+    })
+	}) // end signin post
+}) //end document
+ //localStorage.setItem('myKey', 'myVal') //(must be a string)
+  //localStorage.setItem('myKey') = 'myVal'
+</script>
+
