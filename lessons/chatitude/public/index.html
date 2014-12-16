@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<title>Chatitude</title>
+<style>
+  .chatbox {
+	background-color: #99CCFF;
+	padding: 10px;
+	margin: 5px;
+	width: 600px;
+  }
+  textarea {
+  	width: 600px;
+  	height: 100px;
+  }
+
+</style>
+<script src="jquery-2.1.1.js"></script>
+<script src="handlebars-v2.0.0.js"></script>
+<script src="js/javascript.js"></script>
+</head>
+<body>
+<a href="#" class="signup">Sign Up</a> | <a href="#" class="signin">Sign In</a> |
+<a href="#" class="showchats">View Chats</a><p class="loggedin"></p>
+
+<div class="chatlist"> 
+<script id="chats" type="text/x-handlebars-template">
+	
+	<div id="{{id}}" class="chatbox">
+		<p><b>{{user}}</b>: {{message}}</p>
+		<p>@ {{time}}</p>
+		</div>
+	
+</script></div>
+
+<div class="signupform">
+	<form class="signupform">
+	<h4>Sign Up:</h4>
+	<div class="signuperror"></div>
+	<label>Username:</label>
+	<input type="text" name="username"><br><br>
+	<label>Password:</label>
+	<input type="password" name="password"><br><br>
+	<input type="submit">
+	</form>
+</div>
+
+<div class="signinform">
+	<form class="signinform">
+	<h4>Sign In:</h4>
+	<div class="signinerror"></div>
+	<label>Username:</label>
+	<input type="text" name="username"><br><br>
+	<label>Password:</label>
+	<input type="password" name="password"><br><br>
+	<input type="submit">
+	</form>
+</div>
+
+<div class= "newchat">
+	<form class="chatform">
+	<label>New message</label><br>
+	<textarea name ="message"></textarea>
+	<input type="submit">
+	</form>
+</div>
+</body>
