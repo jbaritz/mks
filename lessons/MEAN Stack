@@ -1,0 +1,9 @@
+MEAN Stack
+
+MongoDB, Express, Angular, Node
+
+View/Controller/Model structure
+
+Angular is on the frontend and Express is on the backend. Angular has a "scope variable" which makes things usable in controllers. View -> Controller -> scope -> Controller -> Model/backend -> MongoDB
+
+Express is similar to sinatra, node can be compared to Ruby. Javascript is used in Node. Node is a runtime, like how browsers have javascript runtimes that let them use it. Node makes a lot of small requests very efficiently. 

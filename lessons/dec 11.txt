@@ -1,0 +1,37 @@
+
+In JS "apply" is useful when you have an array of things you want to perform math operators on.
+
+var nums = [10,20,5,20,20,50]
+Math.max.apply(null, nums) //will return 50
+Math.max(nums) //will return NaN
+
+var getName = function() {return: this.name}
+var bob = {name:"Bob", getTheName: getName}
+bob.getTheName() //this will return "bob" because the () means it calls the function that getTheName points to immediately
+
+"window" is a JS constant for the global scope.
+
+Session Stuff
+
+HTTP IS STATELESS so cookies keep track of session stuff for the server to use. 
+
+"flash[:key] = 'alert message'" can be used to return alerts to the page.
+
+	<a href="#" class="delete-item">delete</a>
+	$('.delete-item').click(fynction(e){
+	var endpoint = e.target.parentElement.id
+	  $ajax({
+		url: endpoint,
+		type: 'DELETE',
+		success: function(result) {
+			if (result === 'delete comment') { //ajax expects a response from the server, you have to return something at the end of your endpoint ruby code
+			document.getElementById(endpoint).remove();
+			}
+		}
+	  })
+	})
+
+	in a form:
+		<input type="hidden" name="_method" value="put"> 
+
+	rack will know if name is '_method' that it should look at the value for what kind of method you actually want to perform. this is a way to subvert the method limitations on forms. however if you want to send a put or delete request with an <a> link you have to use ajax.

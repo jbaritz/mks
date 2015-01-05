@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style media="screen" type="text/css">
+
+body {
+	padding: 20px;
+	margin-left: 20px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<h3>Which airline had the largest quantity of delayed arriving flights? </h3>
+<p><%= @ans[-1]["carrier"] %></p>
+<h3>Which had the fewest?</h3>
+<p><%= @ans[0]["carrier"] %></p>
+</body>
+</html>

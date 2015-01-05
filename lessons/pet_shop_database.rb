@@ -157,11 +157,40 @@ class ShopDatabase
 
  def happiestdogs
   sql = %q[
-    SELECT name, happiness FROM dogs
+    SELECT name, happiness FROM dogs ORDER BY happiness
   ]
   alldogs = @db.exec(sql)
-  p alldogs.entries[-1..-5]
-  
+  happiest = alldogs.entries[-5..-1]
+  puts "Happiest Dogs:"
+  happiest.each{|dog|
+    puts "#{dog["name"]}: #{dog["happiness"]}"
+  }  
+ end
+
+ def allpets
+  sqldogs = %q[
+    SELECT dogs.name AS name, dogs.happiness AS happiness, shops.name AS shop
+    FROM dogs
+    JOIN shops
+    ON dogs.shop_id = shops.id 
+      ]
+  tempdogs = @db.exec(sqldogs)
+  dogs = tempdogs.entries
+  puts "All Pets:"
+  dogs.each {|dog|
+    puts "#{dog["name"]}, #{dog["happiness"]}, @ #{dog["shop"]}"
+  }
+  sqlcats = %q[
+    SELECT cats.name AS name, shops.name AS shop
+    FROM cats
+    JOIN shops
+    ON cats.shop_id = shops.id 
+      ]
+  tempcats = @db.exec(sqlcats)
+    cats = tempcats.entries
+    cats.each {|cat|
+      puts "#{cat["name"]} @ #{cat["shop"]}"
+    }
 end
 
 end #end of class
@@ -171,7 +200,5 @@ petshops = ShopDatabase.new
 # petshops.addData
 # petshops.print_shops
 # petshops.print_store_dogs(2)
-petshops.happiestdogs
-
-
-
+# petshops.happiestdogs
+petshops.allpets

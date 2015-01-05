@@ -1,12 +1,15 @@
 require 'sinatra'
-# require 'pig_latin'
+require 'pig_latin'
 
+get '/' do
+  "hello"
+end
 
 get '/translate' do
   erb :translate
-  @result = PigLatin.translate(params)
 end
 
-post '/translate' do
+post '/result' do
+  @res = PigLatin.to_pig_latin(params)
   erb :result
 end

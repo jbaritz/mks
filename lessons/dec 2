@@ -1,0 +1,23 @@
+GitHub branches
+
+every repo has a 'master' branch. to add an experimental feature you can add a new branch 
+
+'git branch branchname' //adds a new branch, but does not switch to it
+'git checkout branchname' //switches to branchname as active branch; if you commit you will be committing to that branch
+'git branch' //will list branches in a repo and which one you are currently on
+'git merge experiment' //merges named branch into current branch (such as master), but preserves old branch as well
+
+Ruby Development
+
+What is a package manager? apt-get and ruby gems are package managers, they're just libraries of code.
+('devise':user authentication gem for rails)
+Some gems expect to work in specific environments and may not work on certain systems like Windows.
+loading a gem: returns 'true' if successful, returns 'false' if ALREADY LOADED. will raise error otherwise
+$LOAD_PATH is a global variable (also $:) which tells the interpreter where the application files etc. are. so you can see where Ruby files on your system are installed, for example.
+to test a program in irb with a gem file: 'bundle exec irb' will load the file with the gemfile
+Bundler manages gem versions for projects to avoid "dependency hell" when developing in different dev environments. 
+Gemfile.lock is created by Bundler and logs which versions of gems were installed
+'bundle update GemName'
+'bundle install' updates Gems and creates Gemfile.lock
+
+running bundel exec rspec will look for a file ending in "_spec.rb" and run it 

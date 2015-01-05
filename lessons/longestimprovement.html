@@ -1,0 +1,30 @@
+<html>
+<head></head>
+<body>
+<script type = "text/javascript">
+
+	function longestImprovement (numbers) {
+  var result = [];
+  var c = 1;
+  for (var i=0; i < numbers.length; i++) {
+    if (i = 0){
+    	c = 1;
+    	result.push(c);
+    }
+    else if (numbers[i] < numbers[i+1]){
+      c++;
+      result.push(c);
+    }
+    else {
+      c = 1;
+      result.push(c);
+    }
+  }
+ var sorted = result.sort();
+sorted[-1];
+ 
+}
+var numbers =  [10, 20, 30, 10, 20]
+longestImprovement(numbers);
+</script>
+</body>

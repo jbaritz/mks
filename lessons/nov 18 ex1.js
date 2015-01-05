@@ -2,8 +2,9 @@
 
  var flatten = function(array){
 	var newArray = [];
-	for(var i = 0; i<array.length; i++) {
-		if (isNaN(array[i])){
+	for(var i = 0; i<array.length; i++) 
+	{
+		if (array[i] instanceof Array){
 			flatten(array[i]);
 			}
 		else {

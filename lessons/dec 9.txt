@@ -1,0 +1,48 @@
+Variables & Scopes in Javascript
+
+var x = 5
+var f = function(){
+	var x = 11
+	return x 
+}
+var result = f()
+
+^ This will return 11. 
+
+var x = 5
+var f = function(){
+	return x 
+}
+var result = f()
+
+^This will return 5. If Javascript doesn't see a defined varialbe (x) inside the function, it will look outside of the function, where x is defined as 5. 
+
+var result = f //this just points to the code, doesn't run it
+var result = f() //this actually runs the function in f
+
+A function is like "dreamspace" from Inception according to Gilbert. In a dream you can access things you remember from when you're awake, but the stuff inside the dream disappears once you wake up (unless you "return" something at the end of the function, in which case you can remember it outside the dream/function). i.e. code outside a function can't access code inside a function, but code inside a function can access code outside a function.) 
+
+So if you only have:
+
+var f = function(){
+	var x = 11
+}
+
+then you CANNOT access x = 11 outside of the function, since you haven't returned it. If you run :
+	var result = f()
+It will run f(), but it will just return "undefined" because it doesn't return anything (returning is not implicit in JS like it is in Ruby.)
+
+var x = 5
+var add = function(x,y){
+	var result = x+y
+	return result
+}
+var f = function(num){
+	var result = add(num,11)
+	return result
+}
+f(13)
+
+^ In this situation, when f is called, the "add" function is called within it and therefore exists "inside" the f function. So once add is called with (num, 11) it returns result (which is 24) for f to use, and then f returns 24. At the end all you have is 24.
+
+This is important for recursion, because each variable that is instantiated within the function will be instantiated anew for each call of the function. We'll go more in depth about this later.

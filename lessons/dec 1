@@ -1,0 +1,32 @@
+git stuff! 
+
+1. create a repository
+2. make changes (outside of git)
+3. Add changes to git
+4. commit 
+
+creating a repo: 
+git init //do once per project
+ls -a //will show hidden files, including git files
+git status //returns tracked and untracked files
+git add myfile.rb //adds file for git to track
+git diff --staged //shows staged changed that will be committed
+git diff //shows all changes, including ones not staged to be committed
+//put commit messages in present tense, i.e. "create file" instead of "created file" or "creates file", etc.
+//uuid = universally unique identifier; every commit is given one
+//DON'T do "git add ." it will often add files that you were not expecting
+
+GitHub is a company that hosts git repos so you can share code w/ other people. 
+git remote pointer: to push repos to github. "origin" is the common name
+
+git remote add origin git@github.com:something/blah.git //you can add many remotes as you want but only one can be called "origin"
+git remote -v //will list all remote pointers
+git push origin master //pushes to master branch of origin-- all repos are initialize with a master branch
+README.md will be displayed by default on GH if you add it
+
+when you clone a repo from GitHub it will automatically create the repo and a remote pointer on your computer
+
+git pull origin master //might throw an error 
+
+pulling a repo will fetch the repo and merge 
+fetching alone does retrieve the changes but your master branch doesn't change, won't change your local files

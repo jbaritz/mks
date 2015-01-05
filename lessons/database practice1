@@ -1,0 +1,138 @@
+SELECT zip_code, COUNT(zip_code) AS zipcount FROM dangerous_dogs GROUP BY zip_code ORDER BY zipcount DESC
+SELECT COUNT(DISTINCT zip_code) FROM dangerous_dogs;
+SELECT COUNT(*) FROM dangerous_dogs WHERE description_of_dog LIKE '% male%'; -- notice the space before dog!
+SELECT COUNT(*) FROM dangerous_dogs WHERE description_of_dog LIKE '%female%';
+
+CREATE TABLE airlines(
+month numeric,
+airline_id numeric,
+carrier VARCHAR,
+origin_city VARCHAR,
+dest_city VARCHAR,
+depart_delay numeric,
+arrive_delay numeric
+);
+
+COPY airlines FROM '/home/julia/mks/lessons/on_time_performance.csv' DELIMITER ',' CSV HEADER;
+
+SELECT COUNT(DISTINCT airline_id) FROM airlines; --14 distinct airlines
+SELECT carrier, COUNT(depart_delay) AS delays FROM airlines WHERE depart_delay > 0 GROUP BY carrier ORDER BY delays;
+-- Southwest had the most, Hawaiian Airlines had the fewest
+SELECT origin_city, COUNT(depart_delay) AS delays FROM airlines WHERE depart_delay > 0 GROUP BY origin_city ORDER BY delays DESC;
+--Chicago had the most delays, Kalamazoo, MI had the fewest
+SELECT origin_city, COUNT(arrive_delay) AS delays FROM airlines WHERE arrive_delay > 0 GROUP BY origin_city ORDER BY delays DESC;
+--Chicago had the most, Grand Forks had the fewest
+SELECT avg(depart_delay) FROM airlines;
+-- average departure delay is 18.4 minutes
+SELECT carrier, avg(depart_delay) AS delays FROM airlines GROUP BY carrier ORDER BY delays;
+-- per airline:
+ carrier |       delays_in_minutes        
+---------+---------------------
+ HA      |  2.8356869911945506
+ AS      |  6.0989969827937699
+ US      |  9.2902461419981636
+ VX      |  9.4082491582491582
+ OO      | 13.0420040063433770
+ AA      | 13.7281309860439661
+ FL      | 15.7939744025370937
+ UA      | 18.4275430192415768
+ DL      | 19.3734484234555571
+ MQ      | 20.1350931677018634
+ F9      | 22.4799221652220060
+ WN      | 23.1696515643464393
+ EV      | 24.9154072462015879
+ B6      | 29.5412448132780083
+
+CREATE TABLE inspections(
+name VARCHAR,
+zip_code numeric,
+inspect_date VARCHAR,
+score numeric,
+address VARCHAR,
+facility_id numeric, 
+process_description VARCHAR
+);
+
+COPY inspections FROM '/home/julia/mks/lessons/restaurant_inspection_scores.csv' DELIMITER ',' CSV HEADER;
+
+SELECT COUNT(DISTINCT zip_code) FROM inspections; --57 zipcodes
+
+SELECT zip_code, COUNT(*) AS total FROM inspections GROUP BY zip_code ORDER BY total;
+
+    zip_code | total 
+----------+-------
+    78612 |     4
+    78610 |     4
+    78654 |     4
+    78743 |     5
+    78615 |     5
+    78621 |     6
+    78620 |    11
+    78641 |    28
+    78742 |    30
+    78739 |    48
+    78652 |    49
+    78733 |    57
+    78737 |    60
+    78747 |    60
+    78725 |    61
+    78730 |    64
+    78736 |    93
+    78669 |    95
+    78721 |   122
+    78719 |   139
+    78613 |   153
+    78724 |   157
+    78722 |   171
+    78754 |   206
+    78732 |   209
+    78728 |   225
+    78717 |   226
+    78653 |   228
+    78617 |   230
+    78726 |   247
+    78727 |   267
+    78735 |   277
+    78660 |   313
+    78756 |   315
+    78734 |   327
+    78729 |   347
+    78731 |   354
+    78750 |   398
+    78738 |   406
+    78751 |   438
+    78752 |   456
+    78703 |   461
+    78723 |   520
+    78744 |   579
+    78746 |   620
+    78749 |   635
+    78741 |   649
+    78757 |   650
+    78748 |   655
+    78759 |   765
+    78702 |   856
+    78705 |   875
+    78758 |   920
+    78753 |  1015
+    78745 |  1186
+    78701 |  1235
+    78704 |  1453
+
+
+SELECT zip_code, avg(score) AS avg_score from inspections GROUP BY zip_code ORDER BY avg_score;
+
+--78621 had the highest average score (96.8)
+
+SELECT score, COUNT(*) AS count from inspections GROUP BY score ORDER BY score;
+--lowest score is 45, one restaurant got a 45
+
+SELECT facility_id, COUNT(*) AS count from inspections GROUP BY facility_id ORDER BY count;
+
+10549853 |     8
+ 2800829 |     8
+
+SELECT name from inspections WHERE facility_id = 10549853;
+
+-- Morelia Mexican Grill and Thai Kitchen both got 8 visits. As a chain, Subway got the most total between all restaurant locations.
+SELECT name, COUNT(*) AS count from inspections GROUP BY name ORDER BY count DESC limit 5;
