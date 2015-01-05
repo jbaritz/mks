@@ -1,0 +1,28 @@
+Browser Sessions (with Sinatra)
+
+Stateless part of REST means that servers don't cache user info, so when a new request is made all the info that the server needs to process the request should be included in the request
+
+Sessions are generated even if you are not logged in, also keeps users signed in after browser close, etc.
+
+Use SSL -- encrypts info for safety
+
+Sessions are a "concept" implemented via cookies. Cookies are sent along with GET requests so that the server can track your session. 
+
+Cookies are 4KB max, in key/value format, and are sent by the browser with every get request to the server. 
+
+Sessions are disabled in sinatra and have to be enabled in server.rb file:
+
+configure do 
+	enable :sessions
+	set :session_secret, "top secret"
+end
+
+Define session_secret using an environment variable. To set a time for how long the cookie lasts past the close of the browser:
+
+configure do
+	use Rack::Session::Cookie, :expire_after => 2592000 #30 days in seconds
+	:secret = > "top secret"
+end
+
+
+.ru is a file extension for ruby configuration stuff

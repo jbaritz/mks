@@ -1,0 +1,18 @@
+array.map.with_index {|e, i| ...} #will grab the value and its index in the array. look up more enumerator methods!
+
+Sinatra Stuff
+
+- bundle init # will create a gemfile already sourced to rubygems
+- include gems-- 'sinatra', for one
+- bundle install
+- create app.rb or server.rb, whatever
+- form tag 'placeholder' will put gray text in a form that disappears once you click on it
+	<form><input type ='text' placeholder='whatever' /></form>
+- sinatra expects a "public" folder in your directory with any kind of public asset such as images and stuff, javascript, css, etc.
+	sourcing: <img src='/images.whatev.jpg' -- 'public' is implicit, sinatra will already look there, just include / and any subfolder of 'public'
+
+	get '/people/:id' do
+	personid = params[:id]
+	end
+
+

@@ -1,0 +1,4 @@
+Sinatra
+
+the "params" hash is managed by Rack in Sinatra and contains any form (in a post request) or url query (in a get request) parameters that come from the web client. 
+

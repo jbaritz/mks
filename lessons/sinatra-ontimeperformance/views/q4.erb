@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style media="screen" type="text/css">
+
+body {
+	padding: 20px;
+	margin-left: 20px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<h3>Which arriving airport had the highest number of delayed flights? </h3>
+<p><%= @ans[-1]["origin_city"] %></p>
+<h3>Which had the fewest?</h3>
+<p><%= @ans[0]["origin_city"] %></p>
+</body>
+</html>

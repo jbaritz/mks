@@ -1,0 +1,21 @@
+you don't usually NEED to put ; after each line in Javascript but it's better to do it anyway because if you don't other people will think you don't know what you're doing :\
+
+one instane where you do need the semicolon is something like 
+	console.log("E"); 
+	(x.foo = 5)
+
+// if you don't put the ;, it will think that console.log("E") is a function and you are trying to call it with (x.foo = 5)
+
+
+REST
+
+Not really a "standard" for transmitting data on the web but it is a set of conventions that people are encouraged to use. 
+
+Constraints: Client/server, stateless, cacheable, layered, consistent interface
+
+Stateless: server doesn't keep track of anything that the client knows, it's faster and can prevent server request failures if a server is busy and another server needs information for a client
+
+Cacheable: if the server just retrieved and calculated information for one client it should be able to retrieve that info for the same request without having to re-do all the processes
+
+Basically when you're designing an interface you want to make the URL's as intuitive as possible so that someone trying to use your API can easily make sense of the structure of the site
+

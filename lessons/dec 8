@@ -1,0 +1,32 @@
+Big O notation
+O(n)
+O(1) #just doing one thing, regardless of how many elements you have
+O(n^2)
+O(logn) #n is the number of elements you're working with
+
+"cycle" sort of generates an infinite list, but only if you ask for it
+
+e.g. 
+
+	['hi'].cycle.take(10) #will print 'hi' ten times
+
+Hash[ [[1, 'one'],[2, 'two']] ] #this will yield:
+  {1 => 'one', 2 => 'two'}
+
+Hash[[10,20,30].zip [1].cycle] #yields:
+{10 => 1, 20 => 1, 30 => 1}
+
+More Database Stuff
+
+You can technically use arrays as column values but you shouldnt. 
+
+Using join tables with HTML!
+
+<select name="genre_ids[]"> #the brackets lets sinatra know there may be multiple values inputted
+
+Songify::AlbumRepo.save(db, {
+  :title => "album"
+  :genre_ids => [11, 22]
+
+})
+#create album, then iterate through genre_ids and create album genre join row for each genre genre_ids

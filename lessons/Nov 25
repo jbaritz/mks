@@ -1,0 +1,56 @@
+# implementing databases and tables in Ruby
+require 'pg'
+db = PG.connect(host: 'localhost', dbname:'atx_data') #in other instances localhost can be a url, or you can only include host name sometimes
+result = db.exec("select name, score from inspections where score < 70") #returns restaurants with failing scores
+result.entries.count #tells us there are 132 restaurants in results
+result.entries.first #returns first result as a hash
+CREATE TABLE IF NOT EXISTS data(...)
+
+can use "system" to do things in Ruby that you might otherewise do in the terminal, e.g.
+
+    def create_db(dbname)
+      success = system("createdb #{dbname}")
+    end
+
+
+      #to do multiline strings for sql calls: use <<- or %q and a delimiter
+
+    def creat_tables
+      sql = <<-SOMETHING
+      multiline 
+      string
+      multiline
+      string
+      SOMETHING
+
+        #OR
+
+      sql = %q[
+      CREATE TABLE IF NOT EXISTS classmates(
+        first name VARCHAR,
+        last_name VARCHAR, 
+        twitter_handle VARCHAR,
+        age int
+        )
+      ]
+    end
+
+#threequels in ruby works differently than in javascript; it checks if the second object is in the first object, .e.g:
+
+(1..10) === 5 #true
+5 === (1..10) #false
+
+# 'case' in ruby uses threequality so it may cause you some problems
+SELECT name, zip_code, address, facility_id, INTO restaurants from inspections;  #this will create a new table 'restaurants' from information in 'inspections'
+
+ALTER TABLE inspections DROP COLUMN name, DROP COLUMN address, DROP COLUMN zip_code; #because this is now in restaurants so we don't need it repeated in 'inspections'
+
+SELECT i.score, r.name from inspections i # r and i are just aliases for the tables so we odn't have to type out the whole thing later
+JOIN restaurants r  
+ON  i.facility_id = r.facility
+WHERE score < 70
+LIMIT 5; # this whole thing will return 
+#the order in which you name tables for 'from' and 'join' doesn't matter, BUT it just has to be the same as the order that you later call in "join"
+
+a join table is used to link data from different tables to each other
+reference file "nov 25 table examples" for a visual example of joining tables

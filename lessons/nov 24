@@ -1,0 +1,89 @@
+Javascript turnary
+
+(x === 4 ? 'yes!' : 'no!')
+
+varchar in postgres has a 255 char limit. 'text' will accept much more space. with varchar you can define the lenght, text you cannot, e.g.
+	name VARCHAR(10)
+
+	id SERIAL PRIMARY KEY/INTEGER PRIMARY KEY AUTOINCREMENT //will add an incrementing unique identifier id
+
+
+PostgreSQL
+
+Free and very robust, very popular. 
+
+commands:
+
+CREATE TABLE
+
+INSERT INTO tablename (field, field...)
+VALUES (value, value...)
+
+Normalizing your data: removing redundancy and repetition
+
+a "foreign key" is a value representing information in another table, e.g. an ID that refers to a user record in another table, storing in relations
+	
+	FOREIGN KEY(project_id) REFERENCES projects(id)
+
+"schema" gives you an overview of how your table is structured
+
+Data types: numeric, character, date/time, geometry, blob, monetary
+
+geometry = point, line, polygon, circle...
+blob = a binary object, e.g. an image saved as binary data
+
+CREATE/INSERT, SELECT/VIEW, UPDATE/REPLACE, DELETE/DROP
+
+SELECT property FROM project WHERE id = 5; //format for querying info
+
+psql -l //lists all databases on computer
+psql database_name //enters the database
+\q //exit
+
+"CSV" = Comma Separated Values
+
+select * from database_name //displays all values
+select * from database_name limit 1 //grabs first entry
+\d //displays list of tables and relations in database
+COPY file_name FROM 'users/filepath/etc'
+DELIMITER ',' CSV HEADER; //denotes comma as separator value
+
+
+JOINS:
+
+many to many relationships:
+
+class has many students -- a one to many relationship
+student is in many classes -- a one to many relationship
+
+class
+	name:
+	id: 
+	time:
+
+student
+	name:
+	id: 
+	GPA:
+
+join tables aggregate this info together
+
+memberships:
+	id:			class id:		student id:
+	1 				1 				1
+	2 				1 				4
+	3 				1  				5
+
+a "good" join table will only have id-s in it
+
+calling select on JOINS:
+
+SELECT  --m and p are aliases; you are selecting from the memberships table, and joining projects p. you are reading the project properties
+  p.id,
+  p.description, --these is the column information that will be returned in the search; you just want to know what projects are within your scope terms
+  p.priority
+FROM memberships m
+JOIN projects p
+ON p.id = m.project_id    -- if you're searching in memberships you need to 'join' projects to bring in all the project info; 
+WHERE m.employee_id = 6;
+

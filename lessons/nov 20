@@ -1,0 +1,24 @@
+0 in Javascript is falsey because JAVASCRIPT IS JANK ASS SHIT
+
+when making a post request through jQuery you usually have to instantiate the server
+
+	python -m SimpleHTTPServer
+
+	an html form must have an "action" with a target url endpoint to submit to
+	e.preventDefault on submit stops the form from submitting so the page doesn't refresh
+
+	using "context": $('p', '.one') will select p tags within class "one", which is the "context" of 'p'
+	same as: $('.two p') and $('.two').find('p')
+
+	bracket html attributes in jquery: "$('[name=reviewer]'')"
+	$('.one') is same as $('[class=one]'')
+
+	html elements can only have one id, but many classes. 
+
+	"name = " is only for inputs
+
+	use id's sparingly
+
+	.val() gives whatever user typed in
+
+	.html('<tag>stuff</tag>') replaces whatever you selected with the html in the ()s

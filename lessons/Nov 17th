@@ -1,0 +1,33 @@
+- Nov 17th -
+
+REPL - "Read evalaute print loop," irb is the ruby one
+
+rbenv is a better version of rvm, installs gems in directory of project and manages your ruby versions easier
+
+bundler - gem tool that gets and installs gems
+
+gems are libraries of code that someone else as written so you don't have to reinvent the wheel - rubygems.org
+
+don't use "hard" tabs when writing ruby files-- just use spaces (can set in sublimetext preferences - settings-more - syntax specific)
+
+\ is an "escape character" for strings-- so if you have a string "and then she was like "omg!"" with a nested quotation mark you'd put "and then she was like \"omg!\""
+
+in order to read a file in Ruby without having to read the whole thing, you can "open a stream". but if you open it explicitly you must also close it, or pass a block, which opens and closes it
+		
+		variable = File.read('filename.ext') #but this will read the whole file
+		variable = File.open('filename.ext') #opens without reading but keeps it open
+		variable.close 
+		variables._each_line {|x| puts x} #prints out file, much less memory space
+
+\n in a file readout indicates "enter" or a "return"
+
+search a string: "string".match(/X/) #searches for "X" in string, returns a match data object
+				matchfound = "string".match(/s/)
+				if matchfound
+					puts "i found an s" #this will run
+				end 
+
+blah = "6 oz mixed greens"
+blah.to_i #will return 6!
+"6 oz whatever".to_i #returns 6
+"whatever".to_i #returns 0

@@ -1,0 +1,44 @@
+javascript has a .forEach method which is basically a for loop to iterate through an array
+
+	a = [10, 20, 30, 40]
+	a.map(function(x) {
+	return x * 10;
+	})
+	// returns [100, 200, 300, 400]
+
+	a.filter(function(x){
+	return x > 30
+	})
+	// returns [40]
+
+short-circuiting: undefined is a falsey value, so:
+	var counts = {x: 5}
+	if (counts['x']) {alert("truthy")}
+	// will trigger alert, values are truthy in JS just like Ruby
+
+	true || false || false || false || false
+	// will eval to true, once JS sees one "true" it doesn't check the rest in an || call
+
+
+jQuery
+	select all p with class "large":
+		$('p.large')
+
+subbing in Ruby
+	"AT-field".sub('-','') #this will remove the - from the string entirely
+
+Ruby reduce method is the same as inject, every other language calls it reduce as well:
+	array = [10, 30, 40, 60]
+	array.reduce(0) do |r, e| //r is equal to starting value r, e iterates through array
+		r + e 				  // adds 0+10, then 10+30, then 40+40, then 80+60
+	end
+
+	movies.reduce(Hash.new(0)) do |hist, movie|
+		hist[movie['genre']] += 1
+		hist
+	  end
+
+sort_by does convert a hash into an array of arraysl so be mindful of that
+
+	a=(1..20).to_a
+	a.reduce(:+) // uses + as block and applies to all elements, so this adds up all elements of a

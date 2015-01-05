@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>jQuery Starter</title>
+	<style>
+	.pet {
+		float: left;
+		margin-right: 1em;
+	}
+	.pet .photo {
+		height: 100px;
+	}
+	.pet img {
+		max-width: 100px;
+		max-height: 100px;
+	}
+	</style>
+</head>
+<body>
+	
+
+<div class="pets"></div>
+
+
+<script id="pet-template" type="text/x-handlebars-template">
+	<div class="pet">
+	  <div class="photo">
+	  	<img src="{{imageUrl}}" />
+	  </div>
+      <b>{{name}}</b>
+	</div>
+</script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+<script>
+
+	var source   = $("#pet-template").html() //grabs the html within the "pet-template" div
+	var template = Handlebars.compile(source) //"template" acts as a function
+
+	var url = "http://pet-shop.api.mks.io/shops/1/cats"
+	$.get(url, function (cats) {
+		cats.forEach(function (cat) {
+			var catHtml = template(cat)
+			$('.pets').append(catHtml)
+		})
+	})
+</script>
+</body>
+</html>
