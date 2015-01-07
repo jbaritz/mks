@@ -6,6 +6,7 @@ require 'pry-byebug'
 # require 'rack-flash'
 # require_relative 'lib/petshop.rb'
 require_relative 'config/environments.rb'
+require_relative 'lib/DB.rb'
 
 
 configure do
@@ -13,16 +14,21 @@ configure do
   end
 
  before do
-    if session['user_id']
-      user_id = session['user_id']
-      # db = PetShop::Database.dbconnect
-      # @current_user = PetShop::DB.find db, user_id
-      @current_user = User.find(user_id)
-     end
+    if session[:user_id]
+      user_id = session[:user_id]
+      user = User.find(user_id)
+      @current_user = user.attributes
+      usercats = Adoption.where(["user_id= ?",user_id]).to_json 
+      userdogs = Adoption.where(["user_id=?",user_id]).to_json
+      @current_user['cats'] = usercats
+      @current_user['dogs'] = userdogs
+     puts @current_user
+
+    end
   end
 
 get '/' do
- 
+
   erb :index
 end
 
@@ -43,23 +49,27 @@ get '/shops' do
 end
 
 post '/signin' do
+  headers['Content-Type'] = 'application/json'
   params = JSON.parse request.body.read
-
   username = params['username']
   password = params['password']
-
-  # db = PetShop::Database.dbconnect
-  # usersearch = PetShop::DB.find_by_name(db, username)
-
-  if password == usersearch['password']    
-    headers['Content-Type'] = 'application/json'  
-
+  usersearch = User.find_by(username: username)
+  if password == usersearch["password"]
     session[:user_id] = usersearch['id']
-    # user = PetShop::DB.find(db, session[:user_id])
-    user.to_json
+    usersearch.to_json
   else
     status 401
   end
+end
+
+get '/signup' do
+  erb :signup
+end
+
+post '/signup' do
+  puts params
+  User.create!(username: params[:username], password: params[:password])
+  redirect to '/'
 end
 
  # # # #
@@ -74,7 +84,8 @@ get '/shops/:id/cats' do
     attrs.delete(nil)
     attrs
   end
-  s.to_json
+  res = PetShop::DB.map_cats(s)
+  res.to_json
 
 end
 
@@ -84,7 +95,6 @@ put '/shops/:shop_id/cats/:id/adopt' do
   id = params[:id]
   user_id = session[:user_id]
 
-   # PetShop::DB.adopt_cat(db, id, user_id)
 end
 
 
@@ -100,7 +110,8 @@ get '/shops/:id/dogs' do
     attrs.delete(nil)
     attrs
   end
-  s.to_json
+  res = PetShop::DB.map_dogs(s)
+  res.to_json
 end
 
 put '/shops/:shop_id/dogs/:id/adopt' do
