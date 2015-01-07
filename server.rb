@@ -18,11 +18,11 @@ configure do
       user_id = session[:user_id]
       user = User.find(user_id)
       @current_user = user.attributes
-      usercats = Adoption.where(["user_id= ?",user_id]).to_json 
-      userdogs = Adoption.where(["user_id=?",user_id]).to_json
-      @current_user['cats'] = usercats
-      @current_user['dogs'] = userdogs
-     puts @current_user
+     #  usercats = Adoption.where(["user_id= ?",user_id])
+     #  userdogs = Adoption.where(["user_id=?",user_id])
+     #  @current_user['cats'] = usercats
+     #  @current_user['dogs'] = userdogs
+     # puts @current_user
 
     end
   end
