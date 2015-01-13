@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: pet-shop-server_db
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: pet-shop-server_test
+  pool: 5
+  timeout: 5000
