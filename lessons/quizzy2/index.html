@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head><h3>Quizzy Reloaded</h3></head>
+	<body>
+		<div id="app"></div>
+
+		<script src="vendor/mithril.js" type="text/javascript"></script>
+	   	<script src="src/quizcontroller.js" type="text/javascript"></script>
+	   	<script src="src/question.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			QuizApp.vm.questions([
+			 	 {
+			      id: 1,
+			      question: "Who's the best?",
+			      options: ["Anyone other than Shinji","Shinji"],
+			      answer: 1
+			    },
+			    {  id: 2,
+			      question: "Who's also the best?",
+			      options: ["Scorpius","Anyone other than Scorpius"],
+			      answer:0
+			 	}
+				]);
+			var appDiv = document.getElementById('app')
+			m.module(appDiv, { //connects controller and view to the html page
+				controller: QuizApp.controller,
+				view: QuizApp.view
+			})
+		</script>
+	</body>
+</html>
