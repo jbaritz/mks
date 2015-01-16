@@ -10,14 +10,21 @@
 			 {id: 1, answer: 1},
 			 {id: 2, answer: 0}
 			]),
-		score: m.prop()
+		score: m.prop(),
+		questionTallies: m.prop([
+		{id: 1, attempts: 0, correct: 0},
+		{id: 2, attempts: 0, correct: 0}
+			])
+		questionAvgs: m.prop({})
 	}
 
 	QuizApp.controller = function (){
 		var ctrl = {};		
+		if (! localStorage.questionTallies){
+		localStorage.setItem("questionTallies", JSON.stringify(QuizApp.vm.questionTallies()))
+		}
 		ctrl.calcScore = function(){
 			var score = 0;
-			// console.log("dsfsf",QuizApp.vm.correctAnswers())			
 			var qs = QuizApp.vm.questions().length
 			for(var i = 0; i < qs; i++){
 				if (QuizApp.vm.correctAnswers()[i]['answer'] === QuizApp.vm.selectedAnswers()[i+1]){
@@ -27,6 +34,23 @@
 		
 			QuizApp.vm.score(score);
 		}//end calcScore
+
+		ctrl.calcAvg = function(){
+			for (var i = 0; i < Quiz.questions.length; i++){
+				var qdata = JSON.parse(localStorage.questionTallies)
+				qdata[i].attempts++
+				
+				var correctpos = Quiz.questions[i].answer;
+				if(Quiz.questions[i].options[correctpos] === ans[i]){
+					qdata[i].correct++
+					// QuizApp.vm.questionTallies()[0]["id"]
+				}
+			localStorage.clear();
+			localStorage.setItem("questionTallies", JSON.stringify(qdata))
+
+			
+			}
+		}//end calcAvg
 		return ctrl
 	}
 
