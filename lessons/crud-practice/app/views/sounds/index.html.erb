@@ -1,0 +1,6 @@
+<h3>Sounds</h3>
+<ul>
+<% @sounds.each do |sound| %>
+<li><%= link_to sound.title, "/sounds/#{sound.id}" %></li>
+<% end %>
+</ul>

@@ -1,0 +1,6 @@
+<h2>All Videos:</h2>
+<ul>
+<% @videos.each do |video| %>
+<li><%= link_to video.title, "/videos/#{video.id}" %></li>
+<% end %>
+</ul>

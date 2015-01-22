@@ -1,0 +1,16 @@
+<h3>Submit New Video</h3>
+
+<form action="/videos" method="post">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="video[title]">
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="video[description]">
+
+  <label for="youtube_id">Youtube ID:</label>
+  <input type="text" id="youtube_id" name="video[youtube_id]">
+
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+  <input type="submit" value="submit">
+</form>
