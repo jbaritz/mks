@@ -1,0 +1,45 @@
+.container {
+  width: 600px;
+  border: thin #eee solid;
+}
+.container.left .story-container{
+  text-align: left;
+  background-color: green;
+}
+
+.container.right .story-container{
+  text-align: right;
+  background-color: red;
+}
+.top-container {
+
+}
+.clearfix:after {
+     display: block;
+     content: " ";
+     clear: both;
+     height: 0px;
+     }
+ .clearfix { display: inline-block; }
+   /* start commented backslash hack \*/
+  * html .clearfix { height: 1%; }
+ .clearfix { display: block; }
+    /* close commented backslash hack */
+
+.top-button-container {
+}
+
+.button {
+  float: left;
+  height: 50px;
+  width: 200px;
+  background: #ddd;
+  border: 1px solid #ccc;
+  text-align: center;
+  cursor: pointer;
+  line-height: 50px;
+  box-sizing: border-box;
+
+}
+
+

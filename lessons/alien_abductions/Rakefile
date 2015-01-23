@@ -1,0 +1,60 @@
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+
+require File.expand_path('../config/application', __FILE__)
+
+Rails.application.load_tasks
+
+task :ar_test => :environment do
+def assert(actual, expected)
+    raise "Expected #{actual} to equal #{expected}" unless actual == expected
+  end
+
+  def assert_not(actual, expected)
+    raise "Expected #{actual} to not equal #{expected}" unless actual != expected
+  end
+
+  Martian.delete_all
+  Earthling.delete_all
+  Abduction.delete_all
+
+  marvin = Martian.create! :name => 'Marvin'
+  may = Martian.create! :name => 'May'
+  billy = Earthling.create! :name => 'Billy'
+  eddy  = Earthling.create! :name => 'Eddy'
+
+  success = marvin.abductions.create!(:earthling_id => billy.id)
+  assert_not(success, nil)
+  assert(Abduction.all.count, 1)
+
+  success = marvin.abductions.create!(:earthling_id => billy.id)
+  assert_not(success, nil)
+  assert(Abduction.all.count, 2)
+
+  assert_not(marvin.abductions.create!(:earthling_id => eddy.id), nil)
+  assert_not(marvin.abductions.create!(:earthling_id => eddy.id), nil)
+
+  ### Make sure the abduction persisted correctly
+  billy = Earthling.find_by(name: 'Billy')
+  assert_not(billy, nil)
+  assert(billy.abductions.count, 2)
+  assert(billy.abductions.martian.name, 'Marvin')
+
+  marvin = Martian.find_by(name: 'Marvin')
+  assert_not(marvin, nil)
+  assert(marvin.abductions.count, 1)
+  assert(marvin.abductions.earthling.name, 'Billy')
+
+  ### Make sure your code follows martian law
+  success = marvin.abduct(billy)
+  assert(success, nil)
+  assert(Abduction.all.count, 4)
+
+  assert  may.abduct(billy),   false
+  assert  may.abduct(eddy),    false
+  assert  marvin.abduct(eddy), false
+
+  assert(Abduction.all.count, 4)
+
+  puts "All good!"
+end

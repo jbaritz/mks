@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Bot Joust</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="game"></div>
+
+<script type="text/javascript" src="vendor/mithril.js"></script>
+<script type="text/javascript" src="lib/bot-registry.js"></script>
+<script type="text/javascript" src="lib/game.js"></script>
+<script type="text/javascript" src="lib/game-history.js"></script>
+
+<!-- Include your and your opponents' bots here: -->
+<script type="text/javascript" src="shinji-bot.js"></script>
+<script type="text/javascript" src="sample-bot-1.js"></script>
+<script type="text/javascript" src="sample-bot-2.js"></script>
+<script type="text/javascript" src="gregisnotajerk.js"></script>
+
+<!-- ^^^^^^^^^^^^^^^^^^ -->
+
+<script type="text/javascript">
+// Here is where you decide who will battle
+var game = BotJoust.playGame(
+  BotRegistry.get('Shinji'),
+  BotRegistry.get("Occam's Chainsaw")
+)
+
+GameHistory.vm.game(game)
+
+m.module(document.getElementById('game'), GameHistory)
+</script>
+
+</body>
+</html>
